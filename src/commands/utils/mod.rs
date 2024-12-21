@@ -36,7 +36,7 @@ pub fn prompt_existing_pull_request(
         "a merged" => "合并",
         "a draft" => "草稿",
         // 懒得想英文从哪来的，直接转换得了。
-        _ => &pull_request.state,
+        _ => "未知",
     };
     println!(
         "已经存在一个 {} 的有关 {identifier} {version} 的拉取请求，创建于 {} {}",

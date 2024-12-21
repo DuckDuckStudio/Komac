@@ -5,6 +5,10 @@
 ![Issues](https://img.shields.io/github/issues/russellbanks/Komac)
 ![License](https://img.shields.io/github/license/russellbanks/Komac)
 
+> [!NOTE]  
+> 本仓库为 Komac 的 Fork 仓库，所有修改仅限于翻译。如需获得最新版本工具或提交有关使用问题，请前往[源仓库](https://github.com/russellbanks/Komac)查看。  
+> 此工具遵顼 [GNU General Public License v3.0 (GNU 通用公共许可证 3.0)](https://github.com/russellbanks/Komac/blob/main/LICENSE.md) 许可证开源。  
+
 Komac 是一个高级 CLI，旨在为 [WinGet 社区仓库](https://github.com/microsoft/winget-pkgs) 创建清单。
 
 Komac 既快速 🔥 又非常节省内存，在原作者的机器上仅使用约 3.5MB 的内存。

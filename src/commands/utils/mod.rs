@@ -53,6 +53,7 @@ pub fn prompt_existing_pull_request(
             .map_err(handle_inquire_error)?
     };
     Ok(proceed)
+}
 
 pub fn prompt_submit_option(
     changes: &mut [(String, String)],

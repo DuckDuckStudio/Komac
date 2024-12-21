@@ -30,17 +30,9 @@ pub fn prompt_existing_pull_request(
     pull_request: &PullRequest,
 ) -> Result<bool> {
     let created_at = pull_request.created_at.with_timezone(&Local);
-    let state = match pull_request.state.as_str() {
-        "an open" => "打开",
-        "a closed" => "关闭",
-        "a merged" => "合并",
-        "a draft" => "草稿",
-        // 懒得想英文从哪来的，直接转换得了。
-        _ => "未知",
-    };
     println!(
-        "已经存在一个 {} 的有关 {identifier} {version} 的拉取请求，创建于 {} {}",
-        state,
+        "已经存在 {} 的有关 {identifier} {version} 的拉取请求，创建于 {} {}",
+        pull_request.state,
         created_at.date_naive(),
         created_at.time()
     );

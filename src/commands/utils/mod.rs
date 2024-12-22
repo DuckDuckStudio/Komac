@@ -31,7 +31,7 @@ pub fn prompt_existing_pull_request(
 ) -> Result<bool> {
     let created_at = pull_request.created_at.with_timezone(&Local);
     println!(
-        "已经存在 {} 的有关 {identifier} {version} 的拉取请求，创建于 {} {}",
+        "已经存在一个 {} 的有关 {identifier} {version} 的拉取请求，创建于 {} {}",
         pull_request.state,
         created_at.date_naive(),
         created_at.time()

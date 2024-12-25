@@ -29,7 +29,7 @@ base16ct = { version = "0.2.0", features = ["std"] }
 base64ct = { version = "1.6.0", features = ["std"] }
 bit-set = "0.8.0"
 bitflags = "2.6.0"
-bon = "3.3.0"
+bon = "3.3.1"
 byteorder = "1.5.0"
 bzip2 = "0.5.0"
 camino = { version = "1.1.9", features = ["serde1"] }
@@ -58,7 +58,7 @@ liblzma = { version = "0.3.5", features = ["static"] }
 memchr = "2.7.4"
 memmap2 = "0.9.5"
 msi = "0.8.0"
-nt-time = { version = "0.10.3", features = ["chrono"] }
+nt-time = { version = "0.10.4", features = ["chrono"] }
 num_cpus = "1.16.0"
 nutype = { version = "0.5.1", features = ["serde"] }
 open = "5.3.1"
@@ -81,7 +81,7 @@ sha2 = "0.10.8"
 strsim = "0.11.1"
 strum = { version = "0.26.3", features = ["derive"] }
 tempfile = "3.14.0"
-thiserror = "2.0.8"
+thiserror = "2.0.9"
 tokio = { version = "1.42.0", features = ["rt-multi-thread", "macros", "fs"] }
 tree-sitter-highlight = "0.24.5"
 tree-sitter-yaml = "0.7.0"
@@ -91,7 +91,7 @@ uuid = { version = "1.11.0", features = ["v4"] }
 versions = "6.3.2"
 walkdir = "2.5.0"
 yara-x = { version = "0.12.0", default-features = false, features = ["pe-module"] }
-zerocopy = { version = "0.8.13", features = ["derive"] }
+zerocopy = { version = "0.8.14", features = ["derive"] }
 zip = { version = "2.2.2", default-features = false, features = ["deflate"] }
 
 [build-dependencies]

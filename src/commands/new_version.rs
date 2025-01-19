@@ -397,8 +397,7 @@ impl NewVersion {
 
         // 创建一个不确定的进度条，以显示正在创建拉取请求
         let pr_progress = ProgressBar::new_spinner().with_message(format!(
-            "为 {} 版本 {} 创建拉取请求",
-            package_identifier, package_version
+            "正在为 {package_identifier} {package_version} 创建拉取请求"
         ));
         pr_progress.enable_steady_tick(SPINNER_TICK_RATE);
 

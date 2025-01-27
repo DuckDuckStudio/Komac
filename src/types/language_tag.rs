@@ -10,8 +10,8 @@ use std::cmp::Ordering;
 pub struct LanguageTag(LanguageIdentifier);
 
 impl Default for LanguageTag {
-    fn default() -> Self {
-        Self(langid!("en-US"))
+    fn default() -> Self { // 默认
+        Self(langid!("zh-CN"))
     }
 }
 
@@ -28,7 +28,7 @@ impl PartialOrd for LanguageTag {
 }
 
 impl Prompt for LanguageTag {
-    const MESSAGE: &'static str = "Package locale:";
-    const HELP_MESSAGE: Option<&'static str> = Some("Example: en-US");
+    const MESSAGE: &'static str = "软件包区域:";
+    const HELP_MESSAGE: Option<&'static str> = Some("例如: zh-CN (简体中文)");
     const PLACEHOLDER: Option<&'static str> = None;
 }

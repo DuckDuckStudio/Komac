@@ -126,7 +126,7 @@ jobs:
           if ($env:GITHUB_EVENT_NAME -eq 'workflow_run') {
             "name=Nightly release" >> $env:GITHUB_OUTPUT
             "tag_name=nightly" >> $env:GITHUB_OUTPUT
-            "prerelease=true" >> $env:GITHUB_OUTPUT
+            "prerelease=false" >> $env:GITHUB_OUTPUT
             "generate_release_notes=false" >> $env:GITHUB_OUTPUT
           } else {
             "prerelease=false" >> $env:GITHUB_OUTPUT

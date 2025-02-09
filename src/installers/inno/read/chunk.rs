@@ -32,7 +32,7 @@ impl<R: Read> InnoChunkReader<R> {
         if self.length == 0 {
             return Err(Error::new(
                 ErrorKind::UnexpectedEof,
-                "Unexpected Inno block end",
+                "意外的 Inno block end",
             ));
         }
 

@@ -103,7 +103,7 @@ impl<'data> FileAnalyser<'data> {
                     }
                 }
             }
-            _ => bail!(r#"Unsupported file extension: "{extension}""#),
+            _ => bail!(r#"不支持的文件扩展名: "{extension}""#),
         };
         Ok(Self {
             installers: installer.installers(),

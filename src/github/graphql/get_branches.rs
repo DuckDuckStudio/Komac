@@ -99,9 +99,9 @@ impl Display for PullRequestState {
             f,
             "{}",
             match self {
-                Self::Merged => "a merged",
-                Self::Open => "an open",
-                Self::Closed => "a closed",
+                Self::Merged => "已合并",
+                Self::Open => "打开",
+                Self::Closed => "已关闭",
             }
         )
     }

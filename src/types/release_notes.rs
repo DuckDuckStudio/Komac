@@ -87,7 +87,7 @@ impl TextDecorator for GitHubHtmlDecorator {
 #[nutype(
     sanitize(with = |input| truncate_with_lines::<10000>(&input).into_owned(), trim),
     validate(len_char_min = 1, len_char_max = 10000),
-    default = "Release Notes",
+    default = "发行说明",
     derive(Clone, Default, FromStr, Display, Deserialize, Serialize, PartialEq, Eq, Debug)
 )]
 pub struct ReleaseNotes(String);

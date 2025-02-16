@@ -13,38 +13,38 @@ use inquire::validator::{MaxLengthValidator, MinLengthValidator};
 use inquire::Text;
 use owo_colors::OwoColorize;
 
-/// Remove a version from winget-pkgs
+/// 从 winget-pkgs 中删除一个版本
 ///
-/// To remove a package, all versions of that package must be removed
+/// 要删除一个包，必须删除该包的所有版本
 #[derive(Parser)]
 pub struct RemoveVersion {
-    /// The package's unique identifier
+    /// 包的唯一标识符
     #[arg()]
     package_identifier: PackageIdentifier,
 
-    /// The package's version
+    /// 包的版本
     #[arg(short = 'v', long = "version")]
     package_version: PackageVersion,
 
     #[arg(short = 'r', long = "reason")]
     deletion_reason: Option<String>,
 
-    /// List of issues that removing this version would resolve
+    /// 删除此版本将解决的问题列表
     #[arg(long)]
     resolves: Option<Vec<NonZeroU32>>,
 
     #[arg(short, long)]
     submit: bool,
 
-    /// Don't show the package removal warning
+    /// 不显示包删除警告
     #[arg(long)]
     no_warning: bool,
 
-    /// Open pull request link automatically
+    /// 自动打开拉取请求链接
     #[arg(long, env = "OPEN_PR")]
     open_pr: bool,
 
-    /// GitHub personal access token with the `public_repo` scope
+    /// 具有 `public_repo` 范围的 GitHub 个人访问令牌
     #[arg(short, long, env = "GITHUB_TOKEN")]
     token: Option<String>,
 }
@@ -58,7 +58,7 @@ impl RemoveVersion {
         if !self.no_warning {
             println!(
                 "{}",
-                "Packages should only be removed when necessary".yellow()
+                "只有在必要时才应删除包".yellow()
             );
         }
         let github = GitHub::new(&token)?;
@@ -66,7 +66,7 @@ impl RemoveVersion {
 
         if !versions.contains(&self.package_version) {
             bail!(
-                "{} version {} does not exist in {WINGET_PKGS_FULL_NAME}",
+                "{} 版本 {} 不存在于 {WINGET_PKGS_FULL_NAME}",
                 self.package_identifier,
                 self.package_version,
             );
@@ -74,13 +74,13 @@ impl RemoveVersion {
 
         let latest_version = versions.last().unwrap_or_else(|| unreachable!());
         println!(
-            "Latest version of {}: {latest_version}",
+            "{} 的最新版本是: {latest_version}",
             &self.package_identifier
         );
         let deletion_reason = match self.deletion_reason {
             Some(reason) => reason,
             None => Text::new(&format!(
-                "Give a reason for removing {} version {}",
+                "请给出删除 {} 版本 {} 的理由",
                 &self.package_identifier, &self.package_version
             ))
             .with_validator(MinLengthValidator::new(Self::MIN_REASON_LENGTH))
@@ -90,7 +90,7 @@ impl RemoveVersion {
         };
         let should_remove_manifest = self.submit
             || confirm_prompt(&format!(
-                "Would you like to make a pull request to remove {} {}?",
+                "您想创建一个拉取请求来删除 {} {} 吗?",
                 self.package_identifier, self.package_version
             ))?;
 

@@ -9,7 +9,7 @@ use nutype::nutype;
 pub struct Description(String);
 
 impl Prompt for Description {
-    const MESSAGE: &'static str = "Description:";
+    const MESSAGE: &'static str = "描述:";
 }
 
 impl TextPrompt for Description {

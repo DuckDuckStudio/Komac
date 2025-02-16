@@ -5,11 +5,11 @@ use clap::Parser;
 use color_eyre::eyre::Result;
 use owo_colors::OwoColorize;
 
-/// Remove the stored token
+/// 删除存储的令牌
 #[derive(Parser)]
 #[clap(visible_alias = "delete")]
 pub struct RemoveToken {
-    /// Skip the confirmation prompt to delete the token
+    /// 跳过删除令牌的确认提示
     #[arg(short = 'y', long = "yes")]
     skip_prompt: bool,
 }
@@ -22,23 +22,23 @@ impl RemoveToken {
             credential.get_password().err(),
             Some(keyring::Error::NoEntry)
         ) {
-            println!("No token stored is currently stored in the platform's secure storage");
+            println!("当前没有存储在平台安全存储中的令牌");
         }
 
         let confirm = if self.skip_prompt {
             true
         } else {
-            confirm_prompt("Would you like to remove the currently stored token?")?
+            confirm_prompt("是否删除当前存储的令牌?")?
         };
 
         if confirm {
             credential.delete_credential()?;
             println!(
-                "{} deleted the stored token from the platform's secure storage",
-                "Successfully".green()
+                "{} 已从平台的安全存储中删除存储的令牌",
+                "成功".green()
             );
         } else {
-            println!("{}", "No token was deleted".cyan());
+            println!("{}", "没有删除任何令牌".cyan());
         }
 
         Ok(())

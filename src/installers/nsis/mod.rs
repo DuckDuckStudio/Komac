@@ -46,9 +46,9 @@ use zerocopy::{FromBytes, TryFromBytes};
 
 #[derive(Error, Debug)]
 pub enum NsisError {
-    #[error("File is not a NSIS installer")]
+    #[error("文件不是一个 NSIS 安装程序")]
     NotNsisFile,
-    #[error("Failed to get NSIS first header offset")]
+    #[error("获取 NSIS 首标头偏移量失败")]
     FirstHeaderOffset,
     #[error("{0}")]
     ZeroCopy(String),

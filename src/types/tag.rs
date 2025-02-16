@@ -19,10 +19,10 @@ use nutype::nutype;
 pub struct Tag(String);
 
 impl Prompt for Tag {
-    const MESSAGE: &'static str = "Tags:";
+    const MESSAGE: &'static str = "标记:";
 }
 
 impl ListPrompt for Tag {
-    const HELP_MESSAGE: &'static str = "Example: zip, c++, photos, OBS";
+    const HELP_MESSAGE: &'static str = "例如: zip, c++, 图片, OBS, 音乐";
     const MAX_ITEMS: u16 = 16;
 }

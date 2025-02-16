@@ -10,10 +10,10 @@ use thiserror::Error;
 
 #[derive(Error, Debug, PartialEq, Eq)]
 pub enum CustomSwitchError {
-    #[error("Custom switch cannot be empty")]
+    #[error("自定义开关不能为空")]
     Empty,
     #[error(
-        "Custom switch cannot be more than {} characters long",
+        "自定义开关不能长于 {} 个字节",
         CustomSwitch::MAX_LENGTH
     )]
     TooLong,
@@ -87,11 +87,11 @@ impl FromStr for CustomSwitch {
 }
 
 impl Prompt for CustomSwitch {
-    const MESSAGE: &'static str = "Custom installer switch:";
+    const MESSAGE: &'static str = "自定义安装开关:";
 }
 
 impl TextPrompt for CustomSwitch {
-    const HELP_MESSAGE: Option<&'static str> = Some("Example: /norestart, -norestart");
+    const HELP_MESSAGE: Option<&'static str> = Some("例如: /norestart, -norestart");
     const PLACEHOLDER: Option<&'static str> = None;
 }
 

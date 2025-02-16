@@ -105,7 +105,7 @@ impl Submit {
             })
             .collect::<Vec<_>>();
 
-        // If there's only one package, use that. Otherwise, prompt for which package to submit
+        // 如果只有一个包，使用它。否则，提示选择要提交的包
         let manifests = match packages.iter_mut().at_most_one() {
             Ok(None) => {
                 println!(
@@ -115,7 +115,7 @@ impl Submit {
                 return Ok(());
             }
             Ok(Some(manifests)) => manifests,
-            Err(_) => &mut Select::new("Please select which package to submit", packages)
+            Err(_) => &mut Select::new("请选择要提交的包", packages)
                 .with_page_size(10)
                 .prompt()
                 .map_err(handle_inquire_error)?,
@@ -151,7 +151,7 @@ impl Submit {
 
         // Create an indeterminate progress bar to show as a pull request is being created
         let pr_progress = ProgressBar::new_spinner().with_message(format!(
-            "Creating a pull request for {identifier} version {version}",
+            "为 {identifier} 版本 {version} 创建拉取请求",
         ));
         pr_progress.enable_steady_tick(SPINNER_TICK_RATE);
 
@@ -167,8 +167,8 @@ impl Submit {
         pr_progress.finish_and_clear();
 
         println!(
-            "{} created a pull request to {WINGET_PKGS_FULL_NAME}",
-            "Successfully".green()
+            "{} 创建了一个拉取请求到 {WINGET_PKGS_FULL_NAME}",
+            "成功".green()
         );
         println!("{}", pull_request_url.as_str());
 

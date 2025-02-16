@@ -9,15 +9,15 @@ use thiserror::Error;
 
 #[derive(Error, Debug, PartialEq, Eq)]
 pub enum PackageVersionError {
-    #[error("Package version may not contain any control characters")]
+    #[error("软件包版本不得包含任何控制字符")]
     ContainsControlChars,
     #[error(
-        "Package version may not contain any of the following characters: {:?}",
+        "软件包版本不得包含以下任何字符: {:?}",
         DISALLOWED_CHARACTERS
     )]
     DisallowedCharacters,
     #[error(
-        "Package version cannot be more than {} characters long",
+        "软件包版本不得长于 {} 字符",
         PackageVersion::MAX_LENGTH
     )]
     TooLong,
@@ -62,11 +62,11 @@ impl FromStr for PackageVersion {
 }
 
 impl Prompt for PackageVersion {
-    const MESSAGE: &'static str = "Package version:";
+    const MESSAGE: &'static str = "软件包版本:";
 }
 
 impl TextPrompt for PackageVersion {
-    const HELP_MESSAGE: Option<&'static str> = Some("Example: 1.2.3");
+    const HELP_MESSAGE: Option<&'static str> = Some("例如: 1.2.3 (应与控制面板或设置中的版本号相匹配)"); // 温馨提示，欸嘿
     const PLACEHOLDER: Option<&'static str> = None;
 }
 

@@ -8,10 +8,10 @@ use serde::{Deserialize, Serialize};
 pub struct Moniker(Tag);
 
 impl Prompt for Moniker {
-    const MESSAGE: &'static str = "Moniker:";
+    const MESSAGE: &'static str = "别名:";
 }
 
 impl TextPrompt for Moniker {
-    const HELP_MESSAGE: Option<&'static str> = Some("Example: vscode");
+    const HELP_MESSAGE: Option<&'static str> = Some("例如: vscode");
     const PLACEHOLDER: Option<&'static str> = None;
 }

@@ -8,7 +8,7 @@ use serde::{Deserialize, Serialize};
 pub struct CopyrightUrl(DecodedUrl);
 
 impl Prompt for CopyrightUrl {
-    const MESSAGE: &'static str = "Copyright Url:";
+    const MESSAGE: &'static str = "版权链接:";
 }
 
 impl TextPrompt for CopyrightUrl {

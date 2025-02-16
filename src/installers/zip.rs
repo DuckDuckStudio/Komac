@@ -116,7 +116,7 @@ impl<R: Read + Seek> Zip<R> {
     pub fn prompt(&mut self) -> Result<()> {
         if !&self.possible_installer_files.is_empty() {
             let chosen = MultiSelect::new(
-                "Select the nested files",
+                "选择嵌套的文件",
                 mem::take(&mut self.possible_installer_files),
             )
             .with_validator(min_length!(1))
@@ -140,7 +140,7 @@ impl<R: Read + Seek> Zip<R> {
                             {
                                 Some(
                                     Text::new(&format!(
-                                        "Portable command alias for {}:",
+                                        "{} 的便携式命令/别名:", // 翻译不确定
                                         path.as_str()
                                     ))
                                     .prompt()

@@ -63,17 +63,17 @@ const MAX_SUPPORTED_VERSION: InnoVersion = InnoVersion::new(6, 4, u8::MAX, 0);
 
 #[derive(Error, Debug)]
 pub enum InnoError {
-    #[error("File is not an Inno installer")]
+    #[error("文件不是一个 Inno 安装程序")]
     NotInnoFile,
-    #[error("Invalid Inno header version")]
+    #[error("无效的 Inno 标头版本")]
     InvalidSetupHeader,
-    #[error("Inno Setup version {0} is newer than the maximum supported version {MAX_SUPPORTED_VERSION}")]
+    #[error("Inno 安装程序版本 {0} 大于最大支持版本 {MAX_SUPPORTED_VERSION}")]
     UnsupportedVersion(InnoVersion),
-    #[error("Unknown Inno setup version: {0}")]
+    #[error("未知的 Inno 安装程序版本: {0}")]
     UnknownVersion(String),
-    #[error("Unknown Inno Setup loader signature: {0:?}")]
+    #[error("未知 Inno 安装程序加载器签名: {0:?}")]
     UnknownLoaderSignature([u8; 12]),
-    #[error("Inno CRC32 checksum mismatch. Expected {expected} but calculated {actual}")]
+    #[error("Inno CRC32 校验不匹配. 实际: {actual}. 预期: {expected}")]
     CrcChecksumMismatch { actual: u32, expected: u32 },
     #[error(transparent)]
     Io(#[from] io::Error),

@@ -8,7 +8,7 @@ use serde::{Deserialize, Serialize};
 pub struct PublisherUrl(DecodedUrl);
 
 impl Prompt for PublisherUrl {
-    const MESSAGE: &'static str = "Publisher Url:";
+    const MESSAGE: &'static str = "发布者链接:";
 }
 
 impl TextPrompt for PublisherUrl {

@@ -36,7 +36,7 @@ async fn download_file(
 
     if let Err(err) = res.error_for_status_ref() {
         bail!(
-            "{} returned {}",
+            "{} 返回 {}",
             err.url().unwrap().as_str(),
             err.status().unwrap()
         )
@@ -46,7 +46,7 @@ async fn download_file(
     let file_name = get_file_name(&url, res.url(), content_disposition);
     let total_size = res
         .content_length()
-        .ok_or_else(|| eyre!("Failed to get content length from '{url}'"))?;
+        .ok_or_else(|| eyre!("无法从 '{url}' 获取内容长度"))?;
 
     let last_modified = res
         .headers()
@@ -60,10 +60,10 @@ async fn download_file(
             .template("{msg}\n{spinner:.green} [{elapsed_precise}] [{wide_bar:.cyan/blue}] {bytes}/{total_bytes} ({bytes_per_sec}, {eta})")?
             .progress_chars("#>-")
         )
-        .with_message(format!("Downloading {url}"))
+        .with_message(format!("正在下载 {url}"))
     );
 
-    // Download chunks
+    // 下载块
     let temp_file = tempfile::tempfile()?;
     let mut file = tokio::fs::File::from_std(temp_file.try_clone()?);
     let mut downloaded = 0;
@@ -73,7 +73,7 @@ async fn download_file(
     while let Some(item) = stream.next().await {
         let chunk = item?;
         let write = file.write_all(&chunk);
-        hasher.update(&chunk); // Hash file as it's downloading
+        hasher.update(&chunk); // 在下载时对文件进行哈希
         downloaded = min(downloaded + (chunk.len() as u64), total_size);
         pb.set_position(downloaded);
         write.await?;
@@ -92,23 +92,19 @@ async fn download_file(
     })
 }
 
-/// Gets the filename from a URL given the URL, a final redirected URL, and an optional
-/// Content-Disposition header.
+/// 从 URL 获取文件名，给定 URL、最终重定向的 URL 和可选的 Content-Disposition 头。
 ///
-/// This works by getting the filename from the Content-Disposition header. It aims to mimic
-/// Firefox's functionality whereby the filename* parameter is prioritised over filename even if
-/// both are provided. See [Content-Disposition](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Disposition).
+/// 这通过从 Content-Disposition 头获取文件名来实现。它旨在模仿 Firefox 的功能，即使同时提供了 filename 和 filename* 参数，也优先考虑 filename* 参数。
+/// 参见 [Content-Disposition](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Disposition)。
 ///
-/// If there is no Content-Disposition header or no filenames in the Content-Disposition, it falls
-/// back to getting the last part of the initial URL and then the final redirected URL if the
-/// initial URL does not have a valid file extension at the end.
+/// 如果没有 Content-Disposition 头或 Content-Disposition 中没有文件名，则回退到获取初始 URL 的最后一部分，然后是最终重定向的 URL（如果初始 URL 末尾没有有效的文件扩展名）。
 fn get_file_name(url: &Url, final_url: &Url, content_disposition: Option<&HeaderValue>) -> String {
     const FILENAME: &str = "filename";
     const FILENAME_EXT: &str = formatcp!("{FILENAME}*");
 
     if let Some(content_disposition) = content_disposition.and_then(|value| value.to_str().ok()) {
         let mut sections = content_disposition.split(';');
-        let _disposition = sections.next(); // Skip the disposition type
+        let _disposition = sections.next(); // 跳过处置类型
         let filenames = sections
             .filter_map(|section| {
                 if let Some((key, value)) = section
@@ -139,7 +135,7 @@ fn get_file_name(url: &Url, final_url: &Url, content_disposition: Option<&Header
         }
     }
 
-    // Fallback if there is no Content-Disposition header or no filenames in Content-Disposition
+    // 如果没有 Content-Disposition 头或 Content-Disposition 中没有文件名，则回退
     url.path_segments()
         .and_then(|mut segments| segments.next_back())
         .filter(|last_segment| {
@@ -174,9 +170,9 @@ pub async fn download_urls(
 }
 
 pub struct DownloadedFile {
-    // As the downloaded file is a temporary file, it's stored here so that the reference stays
-    // alive and the file does not get deleted. This is necessary because the memory map needs the
-    // file to remain present.
+    // 由于下载的文件是临时文件，因此将其存储在这里，以便引用保持
+    // 文件不会被删除。这是必要的，因为内存映射需要
+    // 文件保持存在。
     #[expect(dead_code)]
     file: File,
     url: DecodedUrl,

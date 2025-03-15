@@ -39,7 +39,7 @@ pub async fn handle_token(token: Option<&str>) -> Result<Cow<str>> {
     } else {
         let token = token_prompt(client, None)?;
         if credential_entry.set_password(&token).is_ok() {
-            println!("Successfully stored token in platform's secure storage");
+            println!("成功将令牌存储在平台的安全存储中");
         }
         Ok(Cow::Owned(token))
     }
@@ -53,7 +53,7 @@ pub fn token_prompt(client: Client, prompt: Option<&str>) -> InquireResult<Strin
                 Ok(()) => Ok(Validation::Valid),
                 Err(err) => Ok(Validation::Invalid(err.into())),
             };
-        Password::new(prompt.unwrap_or("Enter a GitHub token"))
+        Password::new(prompt.unwrap_or("输入一个 GitHub 令牌"))
             .with_validator(validator)
             .without_confirmation()
             .prompt()
@@ -69,12 +69,12 @@ pub async fn validate_token(client: &Client, token: &str) -> Result<()> {
         .await
     {
         Ok(response) => match response.status() {
-            StatusCode::UNAUTHORIZED => bail!("GitHub token is invalid"),
+            StatusCode::UNAUTHORIZED => bail!("GitHub 令牌无效"),
             _ => Ok(()),
         },
         Err(error) => {
             if error.is_connect() {
-                bail!("Failed to connect to GitHub. Please check your internet connection.");
+                bail!("无法连接到 GitHub。请检查您的互联网连接。");
             }
             Err(error.into())
         }

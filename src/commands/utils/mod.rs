@@ -29,7 +29,7 @@ pub fn prompt_existing_pull_request(
 ) -> InquireResult<bool> {
     let created_at = pull_request.created_at.with_timezone(&Local);
     println!(
-        "There is already {} pull request for {identifier} {version} that was created on {} at {}",
+        "已经存在一个 {} 的有关 {identifier} {version} 的拉取请求，创建于 {} {}",
         pull_request.state,
         created_at.date_naive(),
         created_at.time()
@@ -39,7 +39,7 @@ pub fn prompt_existing_pull_request(
         // Exit instead of proceeding in CI environments
         Ok(false)
     } else {
-        confirm_prompt("Would you like to proceed?")
+        confirm_prompt("你想要继续吗?")
     }
 }
 
@@ -60,7 +60,7 @@ pub fn prompt_submit_option(
             SubmitOption::Submit
         } else {
             Select::new(
-                &format!("What would you like to do with {identifier} {version}?"),
+                &format!("您想对 {identifier} {version} 执行什么操作？"),
                 SubmitOption::iter().collect(),
             )
             .prompt()

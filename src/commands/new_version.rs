@@ -53,18 +53,18 @@ use crate::{
     },
 };
 
-/// Create a new package from scratch
+/// 从头开始创建一个新包
 #[derive(Parser)]
 pub struct NewVersion {
-    /// The package's unique identifier
+    /// 包的唯一标识符
     #[arg()]
     package_identifier: Option<PackageIdentifier>,
 
-    /// The package's version
+    /// 包的版本
     #[arg(short = 'v', long = "version")]
     package_version: Option<PackageVersion>,
 
-    /// The list of package installers
+    /// 包安装程序列表
     #[arg(short, long, num_args = 1.., value_hint = clap::ValueHint::Url)]
     urls: Vec<DecodedUrl>,
 
@@ -113,31 +113,31 @@ pub struct NewVersion {
     #[arg(long, value_hint = clap::ValueHint::Url)]
     release_notes_url: Option<ReleaseNotesUrl>,
 
-    /// Number of installers to download at the same time
+    /// 同时下载的安装程序数量
     #[arg(long, default_value_t = NonZeroU8::new(2).unwrap())]
     concurrent_downloads: NonZeroU8,
 
-    /// List of issues that adding this package or version would resolve
+    /// 添加此包或版本将解决的问题列表
     #[arg(long)]
     resolves: Option<Vec<NonZeroU32>>,
 
-    /// Automatically submit a pull request
+    /// 自动提交拉取请求
     #[arg(short, long)]
     submit: bool,
 
-    /// Name of external tool that invoked Komac
+    /// 调用 Komac 的外部工具名称
     #[arg(long, env = "KOMAC_CREATED_WITH")]
     created_with: Option<String>,
 
-    /// URL to external tool that invoked Komac
+    /// 调用 Komac 的外部工具的 URL
     #[arg(long, env = "KOMAC_CREATED_WITH_URL", value_hint = clap::ValueHint::Url)]
     created_with_url: Option<DecodedUrl>,
 
-    /// Directory to output the manifests to
+    /// 输出清单文件的目录
     #[arg(short, long, env = "OUTPUT_DIRECTORY", value_hint = clap::ValueHint::DirPath)]
     output: Option<Utf8PathBuf>,
 
-    /// Open pull request link automatically
+    /// 自动打开拉取请求链接
     #[arg(long, env = "OPEN_PR")]
     open_pr: bool,
 
@@ -169,7 +169,7 @@ impl NewVersion {
         let latest_version = versions.as_ref().and_then(BTreeSet::last);
 
         if let Some(latest_version) = latest_version {
-            println!("Latest version of {package_identifier}: {latest_version}");
+            println!("{package_identifier} 的最新版本是: {latest_version}");
         }
 
         let manifests =
@@ -195,14 +195,14 @@ impl NewVersion {
         let mut urls = self.urls;
         if urls.is_empty() {
             while urls.len() < 1024 {
-                let message = format!("{} Installer URL", (urls.len() + 1).to_number());
+                let message = format!("{} 安装程序 URL", (urls.len() + 1).to_number());
                 let url_prompt = CustomType::<DecodedUrl>::new(&message)
-                    .with_error_message("Please enter a valid URL");
+                    .with_error_message("请输入有效的 URL");
                 let installer_url = if urls.len() + 1 == 1 {
                     Some(url_prompt.prompt().map_err(handle_inquire_error)?)
                 } else {
                     url_prompt
-                        .with_help_message("Press ESC if you do not have any more URLs")
+                        .with_help_message("如果没有更多的 URL，请按 ESC")
                         .prompt_skippable()
                         .map_err(handle_inquire_error)?
                 };
@@ -230,7 +230,7 @@ impl NewVersion {
                 .iter()
                 .any(|installer| installer.r#type == Some(InstallerType::Exe))
             {
-                if confirm_prompt(&format!("Is {} a portable exe?", analyser.file_name))? {
+                if confirm_prompt(&format!("{} 是一个便携式应用程序吗?", analyser.file_name))? {
                     for installer in &mut analyser.installers {
                         installer.r#type = Some(InstallerType::Portable);
                     }
@@ -387,8 +387,8 @@ impl NewVersion {
         if let Some(output) = self.output.map(|out| out.join(package_path)) {
             write_changes_to_dir(&changes, output.as_path()).await?;
             println!(
-                "{} written all manifest files to {output}",
-                "Successfully".green()
+                "{} 将所有清单文件写入 {output}",
+                "成功".green()
             );
         }
 
@@ -404,9 +404,9 @@ impl NewVersion {
             return Ok(());
         }
 
-        // Create an indeterminate progress bar to show as a pull request is being created
+        // 创建一个不确定的进度条，以显示正在创建拉取请求
         let pr_progress = ProgressBar::new_spinner().with_message(format!(
-            "Creating a pull request for {package_identifier} {package_version}"
+            "正在为 {package_identifier} {package_version} 创建拉取请求"
         ));
         pr_progress.enable_steady_tick(SPINNER_TICK_RATE);
 
@@ -425,8 +425,8 @@ impl NewVersion {
         pr_progress.finish_and_clear();
 
         println!(
-            "{} created a pull request to {WINGET_PKGS_FULL_NAME}",
-            "Successfully".green()
+            "{} 创建了一个向 {WINGET_PKGS_FULL_NAME} 的拉取请求",
+            "成功".green()
         );
         println!("{}", pull_request_url.as_str());
 

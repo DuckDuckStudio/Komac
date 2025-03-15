@@ -15,6 +15,7 @@ pub enum UpdateState {
     UpdateVersion,
     #[strum(serialize = "Remove version")]
     RemoveVersion,
+    // 不应该翻译拉取请求标题
 }
 impl UpdateState {
     pub fn get(version: &PackageVersion, versions: Option<&BTreeSet<PackageVersion>>) -> Self {

@@ -108,7 +108,7 @@ impl<'data> FileAnalyser<'data> {
                     Err(burn_error) => return Err(burn_error.into()),
                 }
             }
-            _ => bail!(r#"Unsupported file extension: "{extension}""#),
+            _ => bail!(r#"不支持的文件扩展名: "{extension}""#),
         };
         Ok(Self {
             installers: installer.installers(),

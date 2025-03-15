@@ -1,7 +1,7 @@
 #define AppName "Komac"
 #define Version GetFileProductVersion(InputExecutable)
-#define Publisher "Russell Banks"
-#define URL "https://github.com/russellbanks/Komac"
+#define Publisher "Russell Banks (鸭鸭「カモ」翻译)"
+#define URL "https://github.com/DuckDuckStudio/Komac"
 #define ExeName GetFileOriginalFilename(InputExecutable)
 
 #if Pos("x64", Architecture) > 0
@@ -37,6 +37,7 @@ ArchitecturesInstallIn64BitMode={#ArchAllowed}
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
+Name: "chinesesimplified"; MessagesFile: "compiler:Languages\ChineseSimplified.isl"
 
 [Files]
 Source: "{#InputExecutable}"; DestDir: "{app}\bin"; DestName: "{#ExeName}"
